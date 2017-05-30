@@ -6,7 +6,7 @@
     <button onclick="run()">Run!</button>
 <script>
     
-    // this is newton's algorithym...
+    // this is junk?
 function run()
     {
         var largerInput = parseInt(document.getElementById("firstInput").value);
@@ -17,13 +17,19 @@ function run()
             for(var i=0;i<20;i++)
             {
                 var remainder = big % small;
-                if(remainder>0)
+                var differenceRemainder = Math.abs(small - remainder);
+                if(remainder!=0 && remainder<differenceRemainder)
                 {
                     big = small;
                     small = remainder;
+                }else if(differenceRemainder!=0 && differenceRemainder<remainder)
+                {
+                    big = small;
+                    small = differenceRemainder;
                 }else{
                     return small;
                 }
+                //I need to test this. I am gonna go see if github will let me test it here.
             }
         }
         document.getElementById("output").value = getGCF(largerInput,smallerInput);
