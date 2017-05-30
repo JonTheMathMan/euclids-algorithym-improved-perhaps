@@ -5,46 +5,33 @@
     <textarea id="output"></textarea>
     <button onclick="run()">Run!</button>
 <script>
+    
+    //My updated version of newton's algorithym. It still isn't pretty enough though.
 function run()
     {
-        var largerInput = document.getElementById("firstInput").value;
-        var smallerInput = document.getElementById("secondInput").value;
-        var output = Math.abs(largerInput - smallerInput*(Math.round(largerInput/smallerInput)));
-        var changingSmallerNumber = smallerInput;
-        var largerInputLoopValue = largerInput;
-        var changingOutput = output;
-        for(var i=0;i<20;i++)
+        var largerInput = parseInt(document.getElementById("firstInput").value);
+        var smallerInput = parseInt(document.getElementById("secondInput").value);
+        
+        function getGCF(big,small)
+        {
+            for(var i=0;i<20;i++)
             {
-                if(changingOutput!=0 && parseInt(changingOutput)==changingOutput)
-                    {
-                        changingSmallerNumber = changingOutput;
-                        changingOutput = Math.abs(largerInputLoopValue - changingSmallerNumber*(Math.round(largerInputLoopValue/changingSmallerNumber)));
-                            
-                    }else if(isCommonFactor(largerInput,smallerInput,changingSmallerNumber)==true){
-                        
-                        document.getElementById("output").value = changingSmallerNumber +","+ changingOutput +i;
-                        return true;
-                    }else if(isCommonFactor(largerInput,smallerInput,changingSmallerNumber)==false){
-                        largerInputLoopValue = smallerInput;
-                        changingOutput = changingSmallerNumber;
-                    }
-                console.log("duringForLoop:"+i);
+                var remainder = big % small;
+                var differenceRemainder = Math.abs(small - remainder);
+                if(remainder!=0 && remainder<=differenceRemainder)
+                {
+                    big = small;
+                    small = remainder;
+                }else if(differenceRemainder!=0 && differenceRemainder<remainder)
+                {
+                    big = small;
+                    small = differenceRemainder;
+                }else{
+                    return small;
+                }
             }
-        console.log("endfirstforloop:"+i);
-        if(i>8)
-            {
-                console.log("for-loop1 counter too high!");
-            }
-    }
-
-function isCommonFactor(firstNum,secondNum,supposedCommonFactor)
-    {
-        if(parseInt(firstNum/supposedCommonFactor)==firstNum/supposedCommonFactor && parseInt(secondNum/supposedCommonFactor)==secondNum/supposedCommonFactor)
-            {
-                return true;
-            }else{
-                return false;
-            }
+        }
+        document.getElementById("output").value = getGCF(largerInput,smallerInput);
     }
 </script>
 </body>
